@@ -2,6 +2,7 @@
 
 :root {
   --primary: #032541;
+  --invert: #fcdabe;
   --secondary: #21d07a;
   --white: #fff;
 }
@@ -10,6 +11,18 @@ body {
   font-family: "Source Sans Pro", sans-serif;
   padding: 0;
   margin: 0;
+}
+
+body.dark-mode {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+}
+
+.app-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
 }
 
 .container {
@@ -47,6 +60,7 @@ body {
   padding: 10px 15px;
   background-color: var(--secondary);
   color: var(--primary);
+  border: 1px solid #444;
   border-radius: 5px;
   text-transform: uppercase;
   font-weight: 700;
@@ -149,10 +163,18 @@ header .nav-links li:last-child {
   margin-bottom: 20px;
 }
 
+body.dark-mode .result-card {
+  display: flex;
+  margin-bottom: 20px;
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+}
+
 .result-card .poster-wrapper img,
 .filler-poster {
   width: 75px;
   height: 113px;
+  object-fit: cover;
   background-color: #dbdada;
   border-radius: 5px;
   margin-right: 15px;
@@ -177,6 +199,20 @@ header .nav-links li:last-child {
   font-size: 1.25rem;
   font-weight: 300;
   color: var(--primary);
+  margin: 0;
+}
+
+body.dark-mode .result-card .info .title {
+  font-size: 1.25rem;
+  color: var(--invert);
+  font-weight: 600;
+  margin: 0;
+}
+
+body.dark-mode .result-card .info .release-date {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--invert);
   margin: 0;
 }
 

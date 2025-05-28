@@ -16,14 +16,25 @@ export const ResultCard = ({ movie }) => {
 
   const watchedDisabled = storedMovieWatched ? true : false;
 
+  const title =
+    movie.title || movie.name || movie.volumeInfo?.title || "Untitled";
+
+  const image = movie.poster_path
+    ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+    : movie.volumeInfo?.imageLinks?.thumbnail || movie.background_image || null;
+
+  const date =
+    movie.release_date ||
+    movie.first_air_date ||
+    movie.volumeInfo?.publishedDate ||
+    movie.released ||
+    "-";
+
   return (
     <div className="result-card">
       <div className="poster-wrapper">
-        {movie.poster_path ? (
-          <img
-            src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-            alt={`${movie.title} Poster`}
-          />
+        {image ? (
+          <img src={image} alt={`${title} Poster`} />
         ) : (
           <div className="filler-poster"></div>
         )}
@@ -31,11 +42,10 @@ export const ResultCard = ({ movie }) => {
 
       <div className="info">
         <div className="header">
-          <h3 className="title"> {movie.title} </h3>
-          <h4 className="release-date">
-            {movie.release_date ? movie.release_date.substring(0, 4) : "-"}
-          </h4>
+          <h3 className="title"> {title} </h3>
+          <h4 className="release-date">{date.substring(0, 4)}</h4>
         </div>
+
         <div className="controls">
           <button
             className="btn"
