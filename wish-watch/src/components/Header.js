@@ -7,7 +7,7 @@ export const Header = ({ darkMode, setDarkMode }) => {
       <div className="container">
         <div className="inner-content">
           <div className="brand">
-            <Link to="/">Mixed Media Arts</Link>
+            <Link to="/">Mixed Media</Link>
           </div>
           <button
             className="dark-mode-toggle"

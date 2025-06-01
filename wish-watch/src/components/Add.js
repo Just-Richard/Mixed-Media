@@ -111,10 +111,10 @@ export const Add = () => {
           {results.length > 0 && (
             <ul className="results">
               {" "}
-              {results.map((media) => (
-                <li key={media.id || media.id?.videoId}>
+              {results.map((movie) => (
+                <li key={movie.id || movie.id?.videoId}>
                   {" "}
-                  <ResultCard movie={media} />
+                  <ResultCard movie={movie} />
                 </li>
               ))}{" "}
             </ul>
