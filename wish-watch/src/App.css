@@ -222,7 +222,8 @@ body.dark-mode .result-card {
 .poster-wrapper-obj {
   position: relative;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  aspect-ratio: 2 / 3;
   overflow: hidden;
 }
 
