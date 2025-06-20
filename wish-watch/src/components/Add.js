@@ -21,11 +21,15 @@ export const Add = () => {
         url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1&include_adult=false&query=${searchTerm}`;
         break;
       case "anime":
+      case "cartoon":
       case "tv":
         url = `https://api.themoviedb.org/3/search/tv?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1&query=${searchTerm}`;
         break;
       case "book":
         url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${process.env.REACT_APP_BOOKS_KEY}`;
+        break;
+      case "music":
+        url = `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${searchTerm}&api_key=${process.env.REACT_APP_MUSIC_KEY}&format=json`;
         break;
       case "game":
         url = `https://api.rawg.io/api/games?search=${searchTerm}&key=${process.env.REACT_APP_GAMES_KEY}`;
@@ -56,6 +60,32 @@ export const Add = () => {
             item.origin_country?.includes("JP") && item.genre_ids?.includes(16)
         );
         setResults(anime);
+      } else if (mediaType === "cartoon") {
+        const cartoons = (data.results || []).filter((item) =>
+          item.genre_ids?.includes(16)
+        );
+        setResults(cartoons);
+      } else if (mediaType === "music") {
+        const albums = data.results?.albummatches?.album || [];
+
+        const filteredAlbums = albums.filter((album) => {
+          const hasImage = album.image?.find(
+            (img) => img.size === "extralarge"
+          )?.["#text"];
+          const hasTitle = album.name && album.artist;
+          return hasImage && hasTitle;
+        });
+
+        const mappedAlbums = filteredAlbums.map((item) => ({
+          id: item.mbid || item.url,
+          title: item.name,
+          artist: item.artist,
+          image:
+            item.image?.find((img) => img.size === "extralarge")?.["#text"] ||
+            null,
+          type: "music",
+        }));
+        setResults(mappedAlbums);
       } else if (mediaType === "tv") {
         const tv = (data.results || []).filter(
           (item) =>
@@ -96,6 +126,8 @@ export const Add = () => {
               <option value="movie"> Movies </option>
               <option value="anime"> Anime </option>
               <option value="book"> Books </option>
+              <option value="cartoon"> Cartoons </option>
+              <option value="music"> Music </option>
               <option value="tv"> TV Shows </option>
               <option value="game"> Video Games </option>
             </select>{" "}

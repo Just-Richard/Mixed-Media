@@ -4,7 +4,10 @@ import { MovieControls } from "./MovieControls";
 export const MovieCard = ({ movie, type }) => {
   const poster = movie.poster_path
     ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-    : movie.volumeInfo?.imageLinks?.thumbnail || movie.background_image || null;
+    : movie.volumeInfo?.imageLinks?.thumbnail ||
+      movie.background_image ||
+      movie.image ||
+      null;
 
   const title =
     movie?.title ||

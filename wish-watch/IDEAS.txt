@@ -1,0 +1,19 @@
+Add:
+
+--Database features
+
+--AI Chat Bot feature
+
+--Random Media Picker feature
+
+--User accounts
+
+--Recommend features
+
+Style:
+
+--Animate transitions between cards (optional)
+
+Update:
+
+--Change "watchlist" to "wishlist"

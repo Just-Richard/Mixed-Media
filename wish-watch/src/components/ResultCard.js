@@ -21,7 +21,11 @@ export const ResultCard = ({ movie }) => {
 
   const image = movie.poster_path
     ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-    : movie.volumeInfo?.imageLinks?.thumbnail || movie.background_image || null;
+    : movie.volumeInfo?.imageLinks?.thumbnail ||
+      movie.background_image ||
+      movie.image ||
+      movie.cover ||
+      null;
 
   const date =
     movie.release_date ||
@@ -43,7 +47,14 @@ export const ResultCard = ({ movie }) => {
       <div className="info">
         <div className="header">
           <h3 className="title"> {title} </h3>
-          <h4 className="release-date">{date.substring(0, 4)}</h4>
+          <h4 className="release-date">
+            {" "}
+            {movie.type === "music"
+              ? movie.artist || "-"
+              : date !== "-" && date.length >= 4
+              ? date.substring(0, 4)
+              : "-"}
+          </h4>
         </div>
 
         <div className="controls">
