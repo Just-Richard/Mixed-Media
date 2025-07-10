@@ -1,9 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import { MovieCard } from "./MovieCard";
+import { ChatBot } from "../chatbot/Chatbot";
+import { FaCommentDots } from "react-icons/fa";
+import "../chatbot/Chatbot.css";
 
 export const Watchlist = () => {
   const { watchlist } = useContext(GlobalContext);
+
+  const [showChat, setShowChat] = useState(false);
 
   return (
     <div className="movie-page">
@@ -23,6 +28,20 @@ export const Watchlist = () => {
           </div>
         ) : (
           <h2 className="no-movies">There are no Works in your Watchlist</h2>
+        )}
+
+        <button
+          className="chat-toggle-button"
+          onClick={() => setShowChat(!showChat)}
+          aria-label="Open chat"
+        >
+          <FaCommentDots size={20} />
+        </button>
+
+        {showChat && (
+          <div className="floating-chat">
+            <ChatBot />
+          </div>
         )}
       </div>
     </div>

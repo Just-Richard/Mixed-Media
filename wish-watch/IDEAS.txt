@@ -10,6 +10,8 @@ Add:
 
 --Recommend features
 
+--Ability to Import Lists
+
 Style:
 
 --Animate transitions between cards (optional)
