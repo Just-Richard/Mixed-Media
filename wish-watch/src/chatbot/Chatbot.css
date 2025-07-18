@@ -10,6 +10,11 @@
   font-family: sans-serif;
 }
 
+.dark-mode .chatbot-container {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
 .chat-title {
   text-align: center;
   margin-bottom: 1rem;
@@ -23,6 +28,19 @@
   background: #fff;
   margin-bottom: 1rem;
   border-radius: 4px;
+}
+
+.dark-mode .chat-messages {
+  background-color: #1e1e1e;
+  color: #1e1e1e;
+}
+
+.bot-message {
+  color: #1e1e1e;
+}
+
+.dark-mode .bot-message {
+  color: #fff;
 }
 
 .chat-message {

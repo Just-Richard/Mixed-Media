@@ -2,19 +2,11 @@ Add:
 
 --Database features
 
---AI Chat Bot feature
-
---Random Media Picker feature
-
 --User accounts
-
---Recommend features
 
 --Ability to Import Lists
 
-Style:
-
---Animate transitions between cards (optional)
+--Comments explaining code's functions
 
 Update:
 
