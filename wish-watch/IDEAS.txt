@@ -1,13 +1,11 @@
-Add:
+Update:
 
---Database features
+--Style Login, Profile, Register
 
---User accounts
-
---Ability to Import Lists
+--Change "watchlist" to "wishlist"
 
 --Comments explaining code's functions
 
-Update:
+--Change variable names
 
---Change "watchlist" to "wishlist"
+--Mobile Version

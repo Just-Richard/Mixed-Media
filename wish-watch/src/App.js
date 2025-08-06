@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Add } from "./components/Add";
+import { AuthProvider } from "./context/AuthContext";
 import { Header } from "./components/Header";
 import { GlobalProvider } from "./context/GlobalState";
+import { Login } from "./auth/Login";
+import { Profile } from "./auth/Profile";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { Register } from "./auth/Register";
 import { Watched } from "./components/Watched";
 import { Watchlist } from "./components/Watchlist";
 import "./App.css";
@@ -22,7 +27,7 @@ function App() {
     localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
   return (
-    <GlobalProvider>
+    <AuthProvider>
       <Router>
         <Header darkMode={darkMode} setDarkMode={setDarkMode} />
 
@@ -32,9 +37,22 @@ function App() {
           <Route path="/watched" element={<Watched />} />
 
           <Route path="/add" element={<Add />} />
+
+          <Route path="/login" element={<Login />} />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
-    </GlobalProvider>
+    </AuthProvider>
   );
 }
 

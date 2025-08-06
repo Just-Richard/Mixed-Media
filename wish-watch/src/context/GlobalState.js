@@ -1,14 +1,12 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import AppReducer from "./AppReducer";
+import { supabase } from "../supabase/supabaseClient";
 
 //initial state
 const initialState = {
-  watchlist: localStorage.getItem("watchlist")
-    ? JSON.parse(localStorage.getItem("watchlist"))
-    : [],
-  watched: localStorage.getItem("watched")
-    ? JSON.parse(localStorage.getItem("watched"))
-    : [],
+  watchlist: [],
+  watched: [],
+  user: null,
 };
 
 //create context
@@ -19,13 +17,60 @@ export const GlobalProvider = (props) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   useEffect(() => {
-    localStorage.setItem("watchlist", JSON.stringify(state.watchlist));
-    localStorage.setItem("watched", JSON.stringify(state.watched));
-  }, [state]);
+    const loadUserData = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) {
+        dispatch({ type: "SET_USER", payload: user });
+        await loadWatchlist(user.id);
+        await loadWatched(user.id);
+      }
+    };
+    loadUserData();
+  }, []);
+
+  const loadWatchlist = async (userId) => {
+    const { data, error } = await supabase
+      .from("media_list")
+      .select("*")
+      .eq("user_id", userId)
+      .eq("status", "watchlist");
+
+    if (!error) {
+      dispatch({ type: "SET_WATCHLIST", payload: data });
+    }
+  };
+
+  const loadWatched = async (userId) => {
+    const { data, error } = await supabase
+      .from("media_list")
+      .select("*")
+      .eq("user_id", userId)
+      .eq("status", "watched");
+
+    if (!error) {
+      dispatch({ type: "SET_WATCHED", payload: data });
+    }
+  };
 
   //actions
-  const addMovietoWatchlist = (movie) => {
+  const addMovietoWatchlist = async (movie) => {
     dispatch({ type: "ADD_MOVIE_TO_WATCHLIST", payload: movie });
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (user) {
+      await supabase.from("media_list").insert([
+        {
+          user_id: user.id,
+          title: movie.title || movie.name,
+          type: movie.type,
+          status: "watchlist",
+          poster_url: movie.poster_path || movie.image,
+        },
+      ]);
+    }
   };
 
   //remove from watchlist
@@ -34,8 +79,22 @@ export const GlobalProvider = (props) => {
   };
 
   //move from watchlist to watched
-  const addMovietoWatched = (movie) => {
+  const addMovietoWatched = async (movie) => {
     dispatch({ type: "ADD_MOVIE_TO_WATCHED", payload: movie });
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (user) {
+      await supabase.from("media_list").insert([
+        {
+          user_id: user.id,
+          title: movie.title || movie.name,
+          type: movie.type,
+          status: "watched",
+          poster_url: movie.poster_path || movie.image,
+        },
+      ]);
+    }
   };
 
   //move from watched to watchlist
@@ -53,6 +112,7 @@ export const GlobalProvider = (props) => {
       value={{
         watchlist: state.watchlist,
         watched: state.watched,
+        user: state.user,
         addMovietoWatchlist,
         removeMoviefromWatchlist,
         addMovietoWatched,

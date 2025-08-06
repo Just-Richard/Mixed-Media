@@ -1,5 +1,23 @@
 export default (state, action) => {
   switch (action.type) {
+    case "SET_USER":
+      return {
+        ...state,
+        user: action.payload,
+      };
+
+    case "SET_WATCHLIST":
+      return {
+        ...state,
+        watchlist: action.payload,
+      };
+
+    case "SET_WATCHED":
+      return {
+        ...state,
+        watched: action.payload,
+      };
+
     case "ADD_MOVIE_TO_WATCHLIST":
       return {
         ...state,
