@@ -57,6 +57,38 @@ export const GlobalProvider = (props) => {
   //actions
   const addMovietoWatchlist = async (movie) => {
     dispatch({ type: "ADD_MOVIE_TO_WATCHLIST", payload: movie });
+
+    // const { data: userData } = await supabase.auth.getUser();
+    // const userId = userData?.user?.id;
+
+    // if (!userId) {
+    //   console.error("No Logged in User Found");
+    //   return;
+    // } else {
+    //   await supabase.from("media_list").upsert(
+    //     [
+    //       {
+    //         media_id: movie.id,
+    //         user_id: userId,
+    //         title:
+    //           movie.title ||
+    //           movie.name ||
+    //           movie.volumeInfo?.title ||
+    //           "Untitled",
+    //         type: movie.type,
+    //         status: "watchlist",
+    //         poster_url: movie.poster_path
+    //           ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+    //           : movie.volumeInfo?.imageLinks?.thumbnail ||
+    //             movie.background_image ||
+    //             movie.image ||
+    //             movie.cover ||
+    //             null,
+    //       },
+    //     ],
+    //     { onConflict: ["user_id", "media_id"] }
+    //   );
+    // }
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -64,10 +96,16 @@ export const GlobalProvider = (props) => {
       await supabase.from("media_list").insert([
         {
           user_id: user.id,
-          title: movie.title || movie.name,
+          title:
+            movie.title || movie.name || movie.volumeInfo?.title || "Untitled",
           type: movie.type,
           status: "watchlist",
-          poster_url: movie.poster_path || movie.image,
+          poster_url: movie.poster_path
+            ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+            : movie.volumeInfo?.imageLinks?.thumbnail ||
+              movie.background_image ||
+              movie.image ||
+              movie.cover,
         },
       ]);
     }
@@ -88,10 +126,16 @@ export const GlobalProvider = (props) => {
       await supabase.from("media_list").insert([
         {
           user_id: user.id,
-          title: movie.title || movie.name,
+          title:
+            movie.title || movie.name || movie.volumeInfo?.title || "Untitled",
           type: movie.type,
           status: "watched",
-          poster_url: movie.poster_path || movie.image,
+          poster_url: movie.poster_path
+            ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+            : movie.volumeInfo?.imageLinks?.thumbnail ||
+              movie.background_image ||
+              movie.image ||
+              movie.cover,
         },
       ]);
     }

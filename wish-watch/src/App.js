@@ -28,30 +28,32 @@ function App() {
   }, [darkMode]);
   return (
     <AuthProvider>
-      <Router>
-        <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+      <GlobalProvider>
+        <Router>
+          <Header darkMode={darkMode} setDarkMode={setDarkMode} />
 
-        <Routes>
-          <Route exact path="/" element={<Watchlist />} />
+          <Routes>
+            <Route exact path="/" element={<Watchlist />} />
 
-          <Route path="/watched" element={<Watched />} />
+            <Route path="/watched" element={<Watched />} />
 
-          <Route path="/add" element={<Add />} />
+            <Route path="/add" element={<Add />} />
 
-          <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login />} />
 
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
 
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </Router>
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </Router>
+      </GlobalProvider>
     </AuthProvider>
   );
 }

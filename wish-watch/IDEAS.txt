@@ -1,11 +1,32 @@
 Update:
 
---Style Login, Profile, Register
+--Image Not Showing in Watchlist/Watched Pages*
+
+--Media Type Not Showing Up in Database*
+
+--Status Not Changing from Watchlist -> Watched or Watched -> Watchlist*
+
+
+
+--Remove Red "Remove Account" Button in Profile that check if you are sure before removing
+
+--Have Chatbot be able to Make Suggestions Based on Prefernces
 
 --Change "watchlist" to "wishlist"
 
 --Comments explaining code's functions
 
+--Make Code More Readable
+
 --Change variable names
 
+--Organize CSS file (alphabetical?)
+
+
+Add:
+
 --Mobile Version
+
+
+
+**Make Sure to Test Final Version
