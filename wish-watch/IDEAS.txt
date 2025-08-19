@@ -1,16 +1,16 @@
 Update:
 
---Image Not Showing in Watchlist/Watched Pages*
+--After Web App Reload, Media Items Moved Between Lists Cause New Rows to be Added to Database
 
---Media Type Not Showing Up in Database*
+--Have to Reload Supabase for Media Items to Stay in Lists
 
---Status Not Changing from Watchlist -> Watched or Watched -> Watchlist*
+--On Add Page, Book and Game Results Do Not Fully go Away After Clearing Text Field
 
 
 
---Remove Red "Remove Account" Button in Profile that check if you are sure before removing
+--Red "Remove Account" Button in Profile that check if you are sure before removing
 
---Have Chatbot be able to Make Suggestions Based on Prefernces
+--Have Chatbot be able to Make Suggestions Based on Prefernces and What is in the Lists
 
 --Change "watchlist" to "wishlist"
 
@@ -26,6 +26,8 @@ Update:
 Add:
 
 --Mobile Version
+
+--CSV Import Option
 
 
 

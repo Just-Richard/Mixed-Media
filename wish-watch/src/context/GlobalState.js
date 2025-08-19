@@ -15,7 +15,6 @@ export const GlobalContext = createContext(initialState);
 //provider components
 export const GlobalProvider = (props) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
-
   useEffect(() => {
     const loadUserData = async () => {
       const {
@@ -57,45 +56,14 @@ export const GlobalProvider = (props) => {
   //actions
   const addMovietoWatchlist = async (movie) => {
     dispatch({ type: "ADD_MOVIE_TO_WATCHLIST", payload: movie });
-
-    // const { data: userData } = await supabase.auth.getUser();
-    // const userId = userData?.user?.id;
-
-    // if (!userId) {
-    //   console.error("No Logged in User Found");
-    //   return;
-    // } else {
-    //   await supabase.from("media_list").upsert(
-    //     [
-    //       {
-    //         media_id: movie.id,
-    //         user_id: userId,
-    //         title:
-    //           movie.title ||
-    //           movie.name ||
-    //           movie.volumeInfo?.title ||
-    //           "Untitled",
-    //         type: movie.type,
-    //         status: "watchlist",
-    //         poster_url: movie.poster_path
-    //           ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-    //           : movie.volumeInfo?.imageLinks?.thumbnail ||
-    //             movie.background_image ||
-    //             movie.image ||
-    //             movie.cover ||
-    //             null,
-    //       },
-    //     ],
-    //     { onConflict: ["user_id", "media_id"] }
-    //   );
-    // }
     const {
       data: { user },
     } = await supabase.auth.getUser();
     if (user) {
-      await supabase.from("media_list").insert([
+      await supabase.from("media_list").upsert(
         {
           user_id: user.id,
+          media_id: movie.id.toString(),
           title:
             movie.title || movie.name || movie.volumeInfo?.title || "Untitled",
           type: movie.type,
@@ -107,15 +75,27 @@ export const GlobalProvider = (props) => {
               movie.image ||
               movie.cover,
         },
-      ]);
+        {
+          onConflict: ["user_id", "media_id"],
+        }
+      );
     }
   };
 
   //remove from watchlist
-  const removeMoviefromWatchlist = (id) => {
-    dispatch({ type: "REMOVE_MOVIE_FROM_WATCHLIST", payload: id });
+  const removeMoviefromWatchlist = async (mediaId) => {
+    dispatch({ type: "REMOVE_MOVIE_FROM_WATCHLIST", payload: mediaId });
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (user) {
+      await supabase
+        .from("media_list")
+        .delete()
+        .eq("id", mediaId.toString())
+        .eq("user_id", user.id);
+    }
   };
-
   //move from watchlist to watched
   const addMovietoWatched = async (movie) => {
     dispatch({ type: "ADD_MOVIE_TO_WATCHED", payload: movie });
@@ -123,9 +103,10 @@ export const GlobalProvider = (props) => {
       data: { user },
     } = await supabase.auth.getUser();
     if (user) {
-      await supabase.from("media_list").insert([
+      await supabase.from("media_list").upsert(
         {
           user_id: user.id,
+          media_id: movie.id.toString(),
           title:
             movie.title || movie.name || movie.volumeInfo?.title || "Untitled",
           type: movie.type,
@@ -137,18 +118,55 @@ export const GlobalProvider = (props) => {
               movie.image ||
               movie.cover,
         },
-      ]);
+        {
+          onConflict: ["user_id", "media_id"],
+        }
+      );
     }
   };
 
   //move from watched to watchlist
-  const movetoWatchlist = (movie) => {
+  const movetoWatchlist = async (movie) => {
     dispatch({ type: "MOVE_TO_WATCHLIST", payload: movie });
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (user) {
+      await supabase.from("media_list").upsert(
+        {
+          user_id: user.id,
+          media_id: movie.id.toString(),
+          title:
+            movie.title || movie.name || movie.volumeInfo?.title || "Untitled",
+          type: movie.type,
+          status: "watchlist",
+          poster_url: movie.poster_path
+            ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+            : movie.volumeInfo?.imageLinks?.thumbnail ||
+              movie.background_image ||
+              movie.image ||
+              movie.cover,
+        },
+        {
+          onConflict: ["user_id", "media_id"],
+        }
+      );
+    }
   };
 
   //remove from watched
-  const removeMoviefromWatched = (id) => {
-    dispatch({ type: "REMOVE_MOVIE_FROM_WATCHED", payload: id });
+  const removeMoviefromWatched = async (mediaId) => {
+    dispatch({ type: "REMOVE_MOVIE_FROM_WATCHED", payload: mediaId });
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (user) {
+      await supabase
+        .from("media_list")
+        .delete()
+        .eq("id", mediaId.toString())
+        .eq("user_id", user.id);
+    }
   };
 
   return (

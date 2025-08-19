@@ -47,23 +47,30 @@ export const Add = () => {
         return;
       }
 
-      if (mediaType === "book") {
-        if (!data.items || data.items.length === 0) {
-          setResults([]);
-          return;
-        }
-
-        setResults(data.items);
-      } else if (mediaType === "anime") {
-        const anime = (data.results || []).filter(
-          (item) =>
-            item.origin_country?.includes("JP") && item.genre_ids?.includes(16)
+      if (mediaType === "movie") {
+        setResults(
+          (data.results || []).map((item) => ({ ...item, type: "movie" }))
         );
+      } else if (mediaType === "book") {
+        const books = data.items.map((item) => ({ ...item, type: "book" }));
+        setResults(books);
+      } else if (mediaType === "anime") {
+        const anime = (data.results || [])
+          .filter(
+            (item) =>
+              item.origin_country?.includes("JP") &&
+              item.genre_ids?.includes(16)
+          )
+          .map((item) => ({ ...item, type: "anime" }));
         setResults(anime);
       } else if (mediaType === "cartoon") {
-        const cartoons = (data.results || []).filter((item) =>
-          item.genre_ids?.includes(16)
-        );
+        const cartoons = (data.results || [])
+          .filter(
+            (item) =>
+              !item.origin_country?.includes("JP") &&
+              item.genre_ids?.includes(16)
+          )
+          .map((item) => ({ ...item, type: "cartoon" }));
         setResults(cartoons);
       } else if (mediaType === "music") {
         const albums = data.results?.albummatches?.album || [];
@@ -87,17 +94,21 @@ export const Add = () => {
         }));
         setResults(mappedAlbums);
       } else if (mediaType === "tv") {
-        const tv = (data.results || []).filter(
-          (item) =>
-            !item.origin_country?.includes("JP") &&
-            !item.genre_ids?.includes(16)
-        );
+        const tv = (data.results || [])
+          .filter(
+            (item) =>
+              !item.origin_country?.includes("JP") &&
+              !item.genre_ids?.includes(16)
+          )
+          .map((item) => ({ ...item, type: "tv" }));
         setResults(tv);
-      } else {
-        setResults(data.results || []);
+      } else if (mediaType === "game") {
+        setResults(
+          (data.results || []).map((item) => ({ ...item, type: "game" }))
+        );
       }
     } catch (err) {
-      console.error("Search failed:", err);
+      console.error("Search Failed:", err);
       setResults([]);
     }
   };
