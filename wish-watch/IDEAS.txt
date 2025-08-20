@@ -1,6 +1,8 @@
 Update:
 
---After Web App Reload, Media Items Moved Between Lists Cause New Rows to be Added to Database
+(Test Some More) --After Web App Reload, Media Items Moved Between Lists Cause New Rows to be Added to Database
+
+--Add Hover Effect that Tells Which Media Type Something is (MovieCard)
 
 --Have to Reload Supabase for Media Items to Stay in Lists
 

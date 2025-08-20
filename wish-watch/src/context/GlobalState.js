@@ -56,6 +56,9 @@ export const GlobalProvider = (props) => {
   //actions
   const addMovietoWatchlist = async (movie) => {
     dispatch({ type: "ADD_MOVIE_TO_WATCHLIST", payload: movie });
+
+    const mediaId = (movie.media_id ?? movie.id)?.toString();
+
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -63,7 +66,7 @@ export const GlobalProvider = (props) => {
       await supabase.from("media_list").upsert(
         {
           user_id: user.id,
-          media_id: movie.id.toString(),
+          media_id: mediaId,
           title:
             movie.title || movie.name || movie.volumeInfo?.title || "Untitled",
           type: movie.type,
@@ -99,6 +102,9 @@ export const GlobalProvider = (props) => {
   //move from watchlist to watched
   const addMovietoWatched = async (movie) => {
     dispatch({ type: "ADD_MOVIE_TO_WATCHED", payload: movie });
+
+    const mediaId = (movie.media_id ?? movie.id)?.toString();
+
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -106,7 +112,7 @@ export const GlobalProvider = (props) => {
       await supabase.from("media_list").upsert(
         {
           user_id: user.id,
-          media_id: movie.id.toString(),
+          media_id: mediaId,
           title:
             movie.title || movie.name || movie.volumeInfo?.title || "Untitled",
           type: movie.type,
@@ -128,6 +134,9 @@ export const GlobalProvider = (props) => {
   //move from watched to watchlist
   const movetoWatchlist = async (movie) => {
     dispatch({ type: "MOVE_TO_WATCHLIST", payload: movie });
+
+    const mediaId = (movie.media_id ?? movie.id)?.toString();
+
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -135,7 +144,7 @@ export const GlobalProvider = (props) => {
       await supabase.from("media_list").upsert(
         {
           user_id: user.id,
-          media_id: movie.id.toString(),
+          media_id: mediaId,
           title:
             movie.title || movie.name || movie.volumeInfo?.title || "Untitled",
           type: movie.type,
