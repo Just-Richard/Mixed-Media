@@ -1,8 +1,7 @@
 Update:
 
-(Test Some More) --After Web App Reload, Media Items Moved Between Lists Cause New Rows to be Added to Database
-
 --Add Hover Effect that Tells Which Media Type Something is (MovieCard)
+    --Clickable Icon that Links to Place Where the User Could Watch Media Item
 
 --Have to Reload Supabase for Media Items to Stay in Lists
 
@@ -14,18 +13,21 @@ Update:
 
 --Have Chatbot be able to Make Suggestions Based on Prefernces and What is in the Lists
 
---Change "watchlist" to "wishlist"
 
---Comments explaining code's functions
 
 --Make Code More Readable
 
---Change variable names
+    *Organize Files (alphabetical?)
 
---Organize CSS file (alphabetical?)
+    **Change variable names
+        ^Change "watchlist" to "wishlist"
+
+        ^^Change "movies" to "films"
+
+    ***Comments explaining code's functions
 
 
-Add:
+Add in Future:
 
 --Mobile Version
 
