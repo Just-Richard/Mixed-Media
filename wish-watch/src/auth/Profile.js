@@ -88,6 +88,33 @@ export const Profile = () => {
     }
   };
 
+  const handleDelete = async () => {
+    if (!user) {
+      console.error("No logged-in user, cannot save profile");
+      return;
+    }
+
+    if (
+      !window.confirm(
+        "Are you sure you want to delete your profile? This action cannot be undone."
+      )
+    ) {
+      return;
+    }
+
+    const { error } = await supabase.from("users").delete().eq("id", user.id);
+
+    if (error) {
+      console.error("Error Deleting Profile:", error.message);
+      alert(`Error Deleting Profile: ${error.message}`);
+    } else {
+      alert("Profile Deleted Successfully!");
+
+      await supabase.auth.signOut();
+      navigate("/login");
+    }
+  };
+
   if (!user) {
     console.error("No User Logged in.");
     return;
@@ -146,10 +173,10 @@ export const Profile = () => {
             <button onClick={handleLogout} className="btn">
               Logout
             </button>
-            {/* &nbsp; &nbsp; &nbsp; &nbsp; */}
-            {/* <button onClick={handleDelete} className="btn">
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <button onClick={handleDelete} className="btn-delete">
               Delete
-            </button> */}
+            </button>
           </>
         )}
       </div>
