@@ -20,15 +20,15 @@ export const MovieControls = ({ movie, type }) => {
   const getTypeLabel = (t) => {
     switch (t) {
       case "movie":
-        return "MOV";
+        return "MOVIE";
       case "anime":
-        return "ANI";
+        return "ANIME";
       case "book":
         return "BOOK";
       case "cartoon":
-        return "CAR";
+        return "CARTOON";
       case "music":
-        return "MUS";
+        return "MUSIC";
       case "tv":
         return "TV";
       case "game":
@@ -40,58 +40,53 @@ export const MovieControls = ({ movie, type }) => {
 
   return (
     <div className="inner-card-controls">
-      {type === "watchlist" && (
-        <>
-          <button
-            className="ctrl-btn"
-            onClick={() =>
-              window.open(
-                `https://www.google.com/search?q=${title}`,
-                "_blank",
-                "noopener noreferrer"
-              )
-            }
-          >
-            {getTypeLabel(movie.type)}
-          </button>
-          <button className="ctrl-btn" onClick={() => addMovietoWatched(movie)}>
-            <i className="fa-fw far fa-eye"></i>
-          </button>
+      <button
+        className="media-type-btn"
+        onClick={() =>
+          window.open(
+            `https://www.google.com/search?q=${title} ` +
+              `${getTypeLabel(movie.type)}`,
+            "_blank",
+            "noopener noreferrer"
+          )
+        }
+      >
+        {getTypeLabel(movie.type)}
+      </button>
 
-          <button
-            className="ctrl-btn"
-            onClick={() => removeMoviefromWatchlist(movie.id)}
-          >
-            <i className="fa-fw fa fa-times"></i>
-          </button>
-        </>
-      )}
+      <div className="ctrl-btns">
+        {type === "watchlist" && (
+          <>
+            <button
+              className="ctrl-btn"
+              onClick={() => addMovietoWatched(movie)}
+            >
+              <i className="fa-fw far fa-eye"></i>
+            </button>
 
-      {type === "watched" && (
-        <>
-          <button
-            className="ctrl-btn"
-            onClick={() =>
-              window.open(
-                `https://www.google.com/search?q=${title}`,
-                "_blank",
-                "noopener noreferrer"
-              )
-            }
-          >
-            {getTypeLabel(movie.type)}
-          </button>
-          <button className="ctrl-btn" onClick={() => movetoWatchlist(movie)}>
-            <i className="fa-fw far fa-eye-slash"></i>
-          </button>
-          <button
-            className="ctrl-btn"
-            onClick={() => removeMoviefromWatched(movie.id)}
-          >
-            <i className="fa-fw fa fa-times"></i>
-          </button>
-        </>
-      )}
+            <button
+              className="ctrl-btn"
+              onClick={() => removeMoviefromWatchlist(movie.id)}
+            >
+              <i className="fa-fw fa fa-times"></i>
+            </button>
+          </>
+        )}
+
+        {type === "watched" && (
+          <>
+            <button className="ctrl-btn" onClick={() => movetoWatchlist(movie)}>
+              <i className="fa-fw far fa-eye-slash"></i>
+            </button>
+            <button
+              className="ctrl-btn"
+              onClick={() => removeMoviefromWatched(movie.id)}
+            >
+              <i className="fa-fw fa fa-times"></i>
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 };

@@ -89,29 +89,42 @@ export const Profile = () => {
   };
 
   const handleDelete = async () => {
-    if (!user) {
-      console.error("No logged-in user, cannot save profile");
-      return;
-    }
+    if (!user) return;
+    if (!window.confirm("Delete your account? This cannot be undone.")) return;
 
-    if (
-      !window.confirm(
-        "Are you sure you want to delete your profile? This action cannot be undone."
-      )
-    ) {
-      return;
-    }
+    // Get access token
+    const { data: sessionData } = await supabase.auth.getSession();
+    const accessToken = sessionData?.session?.access_token;
 
-    const { error } = await supabase.from("users").delete().eq("id", user.id);
+    const endpoint =
+      "https://yuxfbygkdiovzjaouqcd.supabase.co/functions/v1/delete-user";
 
-    if (error) {
-      console.error("Error Deleting Profile:", error.message);
-      alert(`Error Deleting Profile: ${error.message}`);
-    } else {
-      alert("Profile Deleted Successfully!");
+    try {
+      console.log("Sending Authorization:", `Bearer ${accessToken}`);
 
-      await supabase.auth.signOut();
-      navigate("/login");
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ userId: user.id }),
+      });
+
+      const json = await res.json();
+
+      if (json?.success) {
+        alert("Profile deleted successfully.");
+        await supabase.auth.signOut();
+        navigate("/login");
+      } else {
+        alert("Error deleting profile: " + (json?.error || "Unknown error"));
+      }
+    } catch (err) {
+      console.error("Delete request failed:", err);
+      alert(
+        "Failed to contact delete-user function. Check endpoint or CORS settings."
+      );
     }
   };
 

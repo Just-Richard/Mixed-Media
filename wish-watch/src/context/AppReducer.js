@@ -18,6 +18,12 @@ export default (state, action) => {
         watched: action.payload,
       };
 
+    case "SET_PROFILE":
+      return {
+        ...state,
+        profile: action.payload,
+      };
+
     case "ADD_MOVIE_TO_WATCHLIST":
       return {
         ...state,

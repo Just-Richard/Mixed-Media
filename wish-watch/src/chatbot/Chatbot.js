@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { getSimilarMedia } from "../ai/openrouter";
+import { GlobalContext } from "../context/GlobalState";
 import "./Chatbot.css";
 
 export const ChatBot = () => {
+  const { watchlist, watched, profile } = useContext(GlobalContext);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,7 +22,14 @@ export const ChatBot = () => {
     setInput("");
     setLoading(true);
 
-    const reply = await getSimilarMedia(input);
+    const context = {
+      username: profile?.username || "Guest",
+      preferences: profile?.preferences || [],
+      watchlist: watchlist.map((m) => m.title),
+      watched: watched.map((m) => m.title),
+    };
+
+    const reply = await getSimilarMedia(input, context);
 
     setMessages([...newMessages, { role: "assistant", content: reply }]);
     setLoading(false);

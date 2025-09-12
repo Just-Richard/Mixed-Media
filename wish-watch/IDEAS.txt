@@ -1,19 +1,15 @@
 Update:
 
-(Style so That Width Adjust With the Control Buttons)--Add Hover Effect that Tells Which Media Type Something is
+(X)--Add Hover Effect that Tells Which Media Type Something is
     --Clickable Icon that Links to Place Where the User Could Watch Media Item
+
+(X)--Red "Remove Account" Button in Profile that check if you are sure before removing
+
+(X)--Have Chatbot be able to Make Suggestions Based on Prefernces and What is in the Lists
 
 --Have to Reload Supabase for Media Items to Stay in Lists
 
 --On Add Page, Book and Game Results Do Not Fully go Away After Clearing Text Field
-
-
-
-(Test Further (Not Completely Deleting User Info))--Red "Remove Account" Button in Profile that check if you are sure before removing
-    
-
---Have Chatbot be able to Make Suggestions Based on Prefernces and What is in the Lists
-
 
 
 --Make Code More Readable

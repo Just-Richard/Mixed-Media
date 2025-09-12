@@ -1,4 +1,4 @@
-export const getSimilarMedia = async (userPrompt) => {
+export const getSimilarMedia = async (userPrompt, context = {}) => {
   try {
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
@@ -18,7 +18,13 @@ export const getSimilarMedia = async (userPrompt) => {
               content:
                 "You are a knowledgeable and conversational media assistant." +
                 "When users mention a title, setting, or theme, first try to identify direct connections (e.g., spinoffs or adaptations)." +
-                "Then suggest other media across different formats (anime, cartoons, movies, TV shows, books, games, music) that share similar themes, style, or tone." +
+                "Then suggest some (around 4-7) other media across different formats (anime, cartoons, movies, TV shows, books, games, and/or music) that share similar themes, style, or tone." +
+                "Here is the user's profile: " +
+                `-Username: ${context.username}
+                -Preferences: ${context.preferences.join(", ")}
+                -Watchlist: ${context.watchlist.join(", ")}
+                -Watched: ${context.watched.join(", ")}` +
+                "You can suggest items based on what they already like, avoid duplicates." +
                 "Respond in a helpful and conversational tone." +
                 "Briefly explain your reasoning behind each suggestion, and feel free to ask the user questions to clarify what they're looking for.",
             },
