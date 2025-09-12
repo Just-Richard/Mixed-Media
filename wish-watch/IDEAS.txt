@@ -7,9 +7,11 @@ Update:
 
 (X)--Have Chatbot be able to Make Suggestions Based on Prefernces and What is in the Lists
 
---Have to Reload Supabase for Media Items to Stay in Lists
+(X)--On Add Page, Book and Game Results Do Not Fully go Away After Clearing Text Field
 
---On Add Page, Book and Game Results Do Not Fully go Away After Clearing Text Field
+(X)--Have to Reload Supabase for Media Items to Stay in Lists
+
+
 
 
 --Make Code More Readable

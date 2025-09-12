@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { ChatBot } from "../chatbot/Chatbot";
+import { FaCommentDots } from "react-icons/fa";
+import "../chatbot/Chatbot.css";
 import { ResultCard } from "./ResultCard";
 
 export const Add = () => {
@@ -6,6 +9,8 @@ export const Add = () => {
   const [results, setResults] = useState([]);
 
   const [mediaType, setMediaType] = useState("movie");
+
+  const [showChat, setShowChat] = useState(false);
 
   const handleSearch = async (searchTerm) => {
     if (!searchTerm.trim()) {
@@ -52,7 +57,10 @@ export const Add = () => {
           (data.results || []).map((item) => ({ ...item, type: "movie" }))
         );
       } else if (mediaType === "book") {
-        const books = data.items.map((item) => ({ ...item, type: "book" }));
+        const books = (data.items || []).map((item) => ({
+          ...item,
+          type: "book",
+        }));
         setResults(books);
       } else if (mediaType === "anime") {
         const anime = (data.results || [])
@@ -74,6 +82,11 @@ export const Add = () => {
         setResults(cartoons);
       } else if (mediaType === "music") {
         const albums = data.results?.albummatches?.album || [];
+
+        if (!albums.length) {
+          setResults([]);
+          return;
+        }
 
         const filteredAlbums = albums.filter((album) => {
           const hasImage = album.image?.find(
@@ -103,9 +116,11 @@ export const Add = () => {
           .map((item) => ({ ...item, type: "tv" }));
         setResults(tv);
       } else if (mediaType === "game") {
-        setResults(
-          (data.results || []).map((item) => ({ ...item, type: "game" }))
-        );
+        const games = (data.results || []).map((item) => ({
+          ...item,
+          type: "game",
+        }));
+        setResults(games);
       }
     } catch (err) {
       console.error("Search Failed:", err);
@@ -163,6 +178,19 @@ export const Add = () => {
             </ul>
           )}
         </div>
+        <button
+          className="chat-toggle-button"
+          onClick={() => setShowChat(!showChat)}
+          aria-label="Open chat"
+        >
+          <FaCommentDots size={20} />
+        </button>
+
+        {showChat && (
+          <div className="floating-chat">
+            <ChatBot />
+          </div>
+        )}
       </div>
     </div>
   );
