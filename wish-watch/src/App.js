@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Add } from "./components/Add";
-import { AuthProvider } from "./context/AuthContext";
 import { Header } from "./components/Header";
 import { GlobalProvider } from "./context/GlobalState";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
+import { Add } from "./components/Add";
 import { Login } from "./auth/Login";
 import { Profile } from "./auth/Profile";
-import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Register } from "./auth/Register";
 import { Watched } from "./components/Watched";
 import { Watchlist } from "./components/Watchlist";
@@ -27,9 +27,9 @@ function App() {
     localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
   return (
-    <AuthProvider>
-      <GlobalProvider>
-        <Router>
+    <Router>
+      <AuthProvider>
+        <GlobalProvider>
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
 
           <Routes>
@@ -52,9 +52,9 @@ function App() {
 
             <Route path="/register" element={<Register />} />
           </Routes>
-        </Router>
-      </GlobalProvider>
-    </AuthProvider>
+        </GlobalProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

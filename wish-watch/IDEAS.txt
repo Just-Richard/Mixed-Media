@@ -1,5 +1,9 @@
 Update:
 
+--Add Artist Name to Search for Music
+
+Test:
+
 (X)--Add Hover Effect that Tells Which Media Type Something is
     --Clickable Icon that Links to Place Where the User Could Watch Media Item
 
@@ -24,14 +28,6 @@ Update:
         ^^Change "movies" to "films"
 
     ***Comments explaining code's functions
-
-
-Add in Future:
-
---Mobile Version
-
---CSV Import Option
-
 
 
 **Make Sure to Test Final Version

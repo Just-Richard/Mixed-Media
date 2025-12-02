@@ -9,14 +9,6 @@ export const MovieControls = ({ movie, type }) => {
     removeMoviefromWatched,
   } = useContext(GlobalContext);
 
-  const title =
-    movie?.title ||
-    movie?.name ||
-    movie?.volumeInfo?.title ||
-    movie?.original_title ||
-    movie?.original_name ||
-    "Untitled";
-
   const getTypeLabel = (t) => {
     switch (t) {
       case "movie":
@@ -40,19 +32,7 @@ export const MovieControls = ({ movie, type }) => {
 
   return (
     <div className="inner-card-controls">
-      <button
-        className="media-type-btn"
-        onClick={() =>
-          window.open(
-            `https://www.google.com/search?q=${title} ` +
-              `${getTypeLabel(movie.type)}`,
-            "_blank",
-            "noopener noreferrer"
-          )
-        }
-      >
-        {getTypeLabel(movie.type)}
-      </button>
+      <button className="media-type-btn">{getTypeLabel(movie.type)}</button>
 
       <div className="ctrl-btns">
         {type === "watchlist" && (
