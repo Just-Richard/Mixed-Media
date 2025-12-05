@@ -62,8 +62,15 @@ Build Tools:
 
 • dotenv
 
+## Important
+
+Account creation is required.
+
+Page refresh is required after adding anything to either list.
+
 ## Project Structure
 
+```
 src/
 ├── ai/
 │ ├── openrouter.js
@@ -100,29 +107,30 @@ src/
 ├── AuthProvider.js
 ├── index.js
 ├── reportWebVitals.css
+```
 
 ## Screenshots
 
 ### Watchlist Page
 
-![Watchlist Page](screenshots\Watchlist.png)
+![Watchlist Page](screenshots/Watchlist.png)
 
 ### Watched Page
 
-![Watched Page](screenshots\Watched.png)
+![Watched Page](screenshots/Watched.png)
 
 ### Add Page
 
-![Add Page](screenshots\Add.png)
+![Add Page](screenshots/Add.png)
 
 ### Login Page
 
-![Login Page](screenshots\Login.png)
+![Login Page](screenshots/Login.png)
 
 ### Profile Page
 
-![Profile Page](screenshots\Profile.png)
+![Profile Page](screenshots/Profile.png)
 
 ### Register Page
 
-![Register Page](screenshots\Register.png)
+![Register Page](screenshots/Register.png)

@@ -32,7 +32,9 @@ export const Watched = () => {
           </div>
         ) : (
           <h2 className="no-movies">
-            Watch Something! Play Something! Read Something!
+            Watch Something! Play Something! Read Something! <br />
+            Login to add Works to Watched <br />
+            Make Sure you Refesh Page After Adding Anything Either List
           </h2>
         )}
 

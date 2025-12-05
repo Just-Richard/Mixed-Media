@@ -31,7 +31,11 @@ export const Watchlist = () => {
             ))}
           </div>
         ) : (
-          <h2 className="no-movies">There are no Works in your Watchlist</h2>
+          <h2 className="no-movies">
+            There are no Works in your Watchlist! <br />
+            Login to add Works to Watchlist <br />
+            Make Sure you Refesh Page After Adding Anything Either List
+          </h2>
         )}
 
         <button
