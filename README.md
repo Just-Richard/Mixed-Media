@@ -1,10 +1,10 @@
 # Wish-Watch — A Mixed Media Tracker
 
-Wish-Watch is a personal media-tracking app that lets users keep lists of what they want to watch or play across multiple formats.
+Wish-Watch is a personal media-tracking app that allows users to create lists of what they want to watch or play across multiple formats.
 
-Click on posters to be taken to clone website to either learn more about the movie/show, listen to the songs, or buy the product.
+Click on posters to be taken to a clone website to either learn more about the movie/show, listen to the songs, or buy the product.
 
-Users can log in, manage watchlists, manage profiles, and search for movies, tv shows, games, etc. using several different APIs.
+Users can log in, manage watchlists, manage profiles, and search for movies, TV shows, games, and more using multiple APIs.
 
 Ask the AI Chatbot for recommendations.
 
