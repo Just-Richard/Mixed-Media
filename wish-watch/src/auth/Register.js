@@ -7,7 +7,6 @@ export const Register = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {

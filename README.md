@@ -18,8 +18,6 @@ This project is built with React and uses Supabase for authentication + user dat
 
 🔍 Media Search via TMDB, RAWG API, Google Books, and Last.fm
 
-🎞️ Media Search via TMDB, RAWG API, Google Books, and Last.fm
-
 📦 Watchlist & Watched Lists stored per user
 
 ⚡ Links to Fully Functioning Clone Websites
